@@ -28,6 +28,8 @@ public class InformationResourceNode extends DefaultMutableTreeNode {
 		super();
 		this.ir = ir;
 		
+		entityNodes = new Vector<EntityNode>();
+		
 		for (DBNode entity : ir.getChildren()) {
 			EntityNode entityNode = new EntityNode((Entity) entity);
 			entityNodes.add(entityNode);
@@ -42,7 +44,7 @@ public class InformationResourceNode extends DefaultMutableTreeNode {
 
 	@Override
 	public TreeNode getChildAt(int index) {
-		return (TreeNode) ir.getChildren().get(index);
+		return (TreeNode) entityNodes.get(index);
 	}
 
 	@Override

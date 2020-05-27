@@ -7,7 +7,7 @@ import observer.Notification;
 import observer.Publisher;
 import observer.Subscriber;
 
-public class PublisherImplementation implements Publisher{
+public class PublisherImplementation implements Publisher {
 
 	private List<Subscriber> subscribers;
 	

@@ -40,7 +40,7 @@ public class EntityNode extends DefaultMutableTreeNode {
 
 	@Override
 	public TreeNode getChildAt(int index) {
-		return (TreeNode) entity.getChildren().get(index);
+		return (TreeNode) attributeNodes.get(index);
 	}
 	
 	@Override

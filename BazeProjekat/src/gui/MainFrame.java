@@ -70,6 +70,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	}
 	
 	public void initializeTree(InformationResource ir) {
+		System.out.println("jednom");
 		InformationResourceNode informationResourceNode = new InformationResourceNode(ir);
 
 		irTree = new InformationResourceTree();
@@ -98,7 +99,7 @@ public class MainFrame extends JFrame implements Subscriber {
 		if(instance == null) {
 			instance = new MainFrame();
 			instance.init();
-			instance.initializeTree();
+			//instance.initializeTree();
 		}
 		return instance;
 	}
@@ -119,6 +120,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	public void Update(Notification notification) {
 		if (notification.getCode() == NotificationCode.RESOURCE_LOADED){
             System.out.println((InformationResource)notification.getData());
+            initializeTree((InformationResource)notification.getData());
         }
         else{
             table.setModel((TableModel) notification.getData());
