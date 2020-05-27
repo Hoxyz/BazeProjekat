@@ -40,7 +40,7 @@ public class AttributeNode extends DefaultMutableTreeNode {
 
 	@Override
 	public TreeNode getChildAt(int index) {
-		return (TreeNode) attribute.getChildren().get(index);
+		return (TreeNode) attributeConstraintNodes.get(index);
 	}
 	
 	@Override

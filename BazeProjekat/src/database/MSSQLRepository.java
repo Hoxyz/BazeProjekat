@@ -14,7 +14,9 @@ import database.settings.Settings;
 import resource.DBNode;
 import resource.data.Row;
 import resource.enums.AttributeType;
+import resource.enums.ConstraintType;
 import resource.implementation.Attribute;
+import resource.implementation.AttributeConstraint;
 import resource.implementation.Entity;
 import resource.implementation.InformationResource;
 
@@ -81,6 +83,15 @@ public class MSSQLRepository implements Repository {
                     int columnSize = Integer.parseInt(columns.getString("COLUMN_SIZE"));
                     Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase().split(" ")[0]), columnSize);
                     newTable.addChild(attribute);
+                }
+                
+                ResultSet primaryKeys = metaData.getPrimaryKeys(connection.getCatalog(), null, tableName);
+                
+                while (primaryKeys.next()) {
+                	String columnName = primaryKeys.getString("COLUMN_NAME");
+                	String pkName = primaryKeys.getString("PK_NAME");
+                	AttributeConstraint attrConstraint = new AttributeConstraint(pkName, ((Attribute)newTable.getChildByName(columnName)), ConstraintType.PRIMARY_KEY);
+                	((Attribute)newTable.getChildByName(columnName)).addChild(attrConstraint);
                 }
             }
             
