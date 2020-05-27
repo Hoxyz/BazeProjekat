@@ -16,5 +16,6 @@ public enum AttributeType {
     INT,
     IMAGE,
     SMALLINT,
-    NVARCHAR
+    NVARCHAR,
+    SYSNAME,
 }

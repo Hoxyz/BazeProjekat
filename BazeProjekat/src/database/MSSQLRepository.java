@@ -74,7 +74,7 @@ public class MSSQLRepository implements Repository {
                 //Koje atribute imaja ova tabela?
 
                 ResultSet columns = metaData.getColumns(connection.getCatalog(), null, tableName, null);
-
+                
                 while (columns.next()){
                     String columnName = columns.getString("COLUMN_NAME");
                     String columnType = columns.getString("TYPE_NAME");
@@ -83,6 +83,7 @@ public class MSSQLRepository implements Repository {
                     newTable.addChild(attribute);
                 }
             }
+            
             //TODO Ogranicenja nad kolonama? Relacije?
             return ir;
             // String isNullable = columns.getString("IS_NULLABLE");

@@ -22,11 +22,19 @@ public class AppCore extends PublisherImplementation {
 	private Database database;
     private Settings settings;
     private TableModel tableModel;
+    
+    //TODO
+    private InformationResource ir;
+    
+    public InformationResource getInformationResource() {
+    	return ir;
+    }
 
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
         tableModel = new TableModel();
+        ir = new InformationResource("Test");
     }
 
     private Settings initSettings() {
@@ -40,8 +48,8 @@ public class AppCore extends PublisherImplementation {
 
 
     public void loadResource(){
-        InformationResource ir = (InformationResource) this.database.loadResource();
-        this.NotifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED,ir));
+        ir = (InformationResource) this.database.loadResource();
+        this.NotifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED, ir));
     }
 
     public void readDataFromTable(String fromTable){
