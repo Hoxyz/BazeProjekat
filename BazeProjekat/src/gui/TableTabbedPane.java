@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -29,6 +31,26 @@ public class TableTabbedPane extends JTabbedPane {
 	private void Initialize() {
 		openTables = new HashMap<Entity, EntityPanel>();
 		panelTabIndex = new Vector<Entity>();
+		
+		addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+					if (panelTabIndex.size() > 0) {
+						if (panelTabIndex.get(getSelectedIndex()) != null) {
+							closeTable(panelTabIndex.get(getSelectedIndex()));
+						}
+					}
+				}
+			}
+		});
 	}
 
 	public Entity getCurrentDocument() {

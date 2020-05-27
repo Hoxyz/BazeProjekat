@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,6 +21,8 @@ public class EntityPanel extends JPanel {
 	public EntityPanel (Entity entity) {
 		this.entity = entity;
 		
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
 		tableModel = new TableModel();
 		tableModel.setRows(MainFrame.getInstance().getAppCore().getDatabase().readDataFromTable(entity.getName()));
 		
@@ -27,6 +31,8 @@ public class EntityPanel extends JPanel {
 		
 		scrollPane = new JScrollPane(table);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		scrollPane.setPreferredSize(new Dimension(1920, 1080));
+		
 		add(scrollPane, BorderLayout.EAST);
 	}
 	
