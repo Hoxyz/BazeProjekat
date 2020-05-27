@@ -79,7 +79,7 @@ public class MSSQLRepository implements Repository {
                     String columnName = columns.getString("COLUMN_NAME");
                     String columnType = columns.getString("TYPE_NAME");
                     int columnSize = Integer.parseInt(columns.getString("COLUMN_SIZE"));
-                    Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase()), columnSize);
+                    Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase().split(" ")[0]), columnSize);
                     newTable.addChild(attribute);
                 }
             }

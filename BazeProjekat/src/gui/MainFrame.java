@@ -82,7 +82,10 @@ public class MainFrame extends JFrame implements Subscriber {
 		treeScrollPane.setPreferredSize(new Dimension(260, 150));
 		
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, scrollPane);
+		splitPane.setPreferredSize(new Dimension(800, 600));
 		this.add(splitPane, BorderLayout.CENTER);
+		
+		pack();
 		
 		revalidate();
 		repaint();
@@ -107,6 +110,8 @@ public class MainFrame extends JFrame implements Subscriber {
 		table = new JTable();
         table.setPreferredScrollableViewportSize(new Dimension(500, 400));
         table.setFillsViewportHeight(true);
+        
+		scrollPane = new JScrollPane(table);
 	}
 	
 

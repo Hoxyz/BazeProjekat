@@ -18,4 +18,5 @@ public enum AttributeType {
     SMALLINT,
     NVARCHAR,
     SYSNAME,
+    VARBINARY
 }
