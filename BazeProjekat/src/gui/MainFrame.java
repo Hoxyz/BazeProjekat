@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,7 +24,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	
 	private AppCore appCore;
 	private JTable table;
-	private JScrollPane scrollPane;
+	private TableTabbedPane tablePane;
 	private JPanel panel;
 	
 	private JScrollPane treeScrollPane;
@@ -43,14 +41,6 @@ public class MainFrame extends JFrame implements Subscriber {
 		this.appCore = appCore;
 		this.appCore.AddSubscriber(this);
 		this.table.setModel(appCore.getTableModel());
-	}
-	
-	public JScrollPane getScrollPane() {
-		return scrollPane;
-	}
-
-	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
 	}
 	
 	public JPanel getPanel() {
@@ -70,7 +60,6 @@ public class MainFrame extends JFrame implements Subscriber {
 	}
 	
 	public void initializeTree(InformationResource ir) {
-		System.out.println("jednom");
 		InformationResourceNode informationResourceNode = new InformationResourceNode(ir);
 
 		irTree = new InformationResourceTree();
@@ -82,7 +71,7 @@ public class MainFrame extends JFrame implements Subscriber {
 		treeScrollPane = new JScrollPane(irTree);
 		treeScrollPane.setPreferredSize(new Dimension(260, 150));
 		
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, scrollPane);
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, tablePane);
 		splitPane.setPreferredSize(new Dimension(800, 600));
 		this.add(splitPane, BorderLayout.CENTER);
 		
@@ -104,7 +93,9 @@ public class MainFrame extends JFrame implements Subscriber {
 		return instance;
 	}
 	
-	
+	public TableTabbedPane getTablePane () {
+		return tablePane;
+	}
 	
 	private void init() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,10 +103,9 @@ public class MainFrame extends JFrame implements Subscriber {
         table.setPreferredScrollableViewportSize(new Dimension(500, 400));
         table.setFillsViewportHeight(true);
         
-		scrollPane = new JScrollPane(table);
+        tablePane = new TableTabbedPane();
 	}
 	
-
 	@Override
 	public void Update(Notification notification) {
 		if (notification.getCode() == NotificationCode.RESOURCE_LOADED){

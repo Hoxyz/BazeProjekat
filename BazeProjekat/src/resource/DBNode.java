@@ -1,7 +1,5 @@
 package resource;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 public abstract class DBNode {
 	
 	private String name;

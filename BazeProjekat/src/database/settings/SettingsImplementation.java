@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class SettingsImplementation implements Settings {
 	
-	private Map parameters = new HashMap();
+	private Map<String, Object> parameters = new HashMap<String, Object>();
 	
 	@Override
     public Object getParameter(String parameter) {

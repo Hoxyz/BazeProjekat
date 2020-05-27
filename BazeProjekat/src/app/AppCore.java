@@ -7,15 +7,10 @@ import database.settings.Settings;
 import database.settings.SettingsImplementation;
 import gui.table.TableModel;
 import observer.Notification;
-import observer.Publisher;
-import observer.Subscriber;
 import observer.enums.NotificationCode;
 import observer.implementation.PublisherImplementation;
 import resource.implementation.InformationResource;
 import utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppCore extends PublisherImplementation {
 	
@@ -69,5 +64,7 @@ public class AppCore extends PublisherImplementation {
         this.tableModel = tableModel;
     }
 
-	
+	public Database getDatabase () {
+		return database;
+	}
 }
