@@ -1,7 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.LayoutManager;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,6 +15,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import actions.ActionManager;
 import app.AppCore;
 import gui.tree.InformationResourceNode;
 import gui.tree.InformationResourceTree;
@@ -23,11 +30,15 @@ public class MainFrame extends JFrame implements Subscriber {
 	private static MainFrame instance = null;
 	
 	private AppCore appCore;
+	
+	private ActionManager actionManager;
+	
 	private JTable table;
 	private TableTabbedPane tablePane;
-	private JPanel panel;
-	
 	private JScrollPane treeScrollPane;
+	private JButton buttonAddRow;
+	private JPanel topTablePanel;
+	private JPanel bottomTablePanel;
 	private JSplitPane splitPane;
 	
 	private InformationResourceModel treeModel;
@@ -37,22 +48,19 @@ public class MainFrame extends JFrame implements Subscriber {
 		return appCore;
 	}
 	
+	public ActionManager getActionManager() {
+		return actionManager;
+	}
+	
 	public void setAppCore(AppCore appCore) {
 		this.appCore = appCore;
 		this.appCore.AddSubscriber(this);
 		this.table.setModel(appCore.getTableModel());
 	}
-	
-	public JPanel getPanel() {
-		return panel;
-	}
-
-	public void setPanel(JPanel panel) {
-		this.panel = panel;
-	}
 
 	private MainFrame() {
 		super();
+		actionManager = new ActionManager();
 	}
 	
 	public void initializeTree() {
@@ -71,15 +79,34 @@ public class MainFrame extends JFrame implements Subscriber {
 		treeScrollPane = new JScrollPane(irTree);
 		treeScrollPane.setPreferredSize(new Dimension(260, 150));
 		
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, tablePane);
-		splitPane.setPreferredSize(new Dimension(800, 600));
-		this.add(splitPane, BorderLayout.CENTER);
+		buttonAddRow = new JButton(actionManager.getOpenAddDialogAction());
+		buttonAddRow.setAlignmentX(CENTER_ALIGNMENT);
+		buttonAddRow.setAlignmentY(CENTER_ALIGNMENT);
+		topTablePanel = new JPanel();
+		topTablePanel.setLayout(new BoxLayout(topTablePanel, BoxLayout.PAGE_AXIS));
+		topTablePanel.add(tablePane);
+		topTablePanel.add(buttonAddRow);
 		
+		bottomTablePanel = new JPanel();
+		bottomTablePanel.setLayout(new BoxLayout(bottomTablePanel, BoxLayout.PAGE_AXIS));
+		bottomTablePanel.setPreferredSize(new Dimension(500, 400));
+		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+		rightPanel.add(topTablePanel);
+		rightPanel.add(bottomTablePanel);
+		
+		
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rightPanel);
+		splitPane.setPreferredSize(new Dimension(800, 600));
+		
+		
+		this.add(splitPane, BorderLayout.CENTER);
 		pack();
 		
 		revalidate();
 		repaint();
-		
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		// NOTE: these GUI manipulations may not belong in this method
 	}
@@ -112,7 +139,7 @@ public class MainFrame extends JFrame implements Subscriber {
             System.out.println((InformationResource)notification.getData());
             initializeTree((InformationResource)notification.getData());
         }
-        else{
+        else {
             table.setModel((TableModel) notification.getData());
         }
 	}

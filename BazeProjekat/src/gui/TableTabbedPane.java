@@ -53,7 +53,7 @@ public class TableTabbedPane extends JTabbedPane {
 		});
 	}
 
-	public Entity getCurrentDocument() {
+	public Entity getCurrentTable() {
 		return panelTabIndex.elementAt(getSelectedIndex());
 	}
 

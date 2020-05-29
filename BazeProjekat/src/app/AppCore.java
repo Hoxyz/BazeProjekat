@@ -24,7 +24,7 @@ public class AppCore extends PublisherImplementation {
     public InformationResource getInformationResource() {
     	return ir;
     }
-
+    
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
@@ -52,7 +52,7 @@ public class AppCore extends PublisherImplementation {
         tableModel.setRows(this.database.readDataFromTable(fromTable));
 
         //Zasto ova linija moze da ostane zakomentarisana?
-        //this.notifySubscribers(new Notification(NotificationCode.DATA_UPDATED, this.getTableModel()));
+        //this.NotifySubscribers(new Notification(NotificationCode.DATA_UPDATED, this.getTableModel()));
     }
 
 
@@ -64,7 +64,7 @@ public class AppCore extends PublisherImplementation {
         this.tableModel = tableModel;
     }
 
-	public Database getDatabase () {
+	public Database getDatabase() {
 		return database;
 	}
 }

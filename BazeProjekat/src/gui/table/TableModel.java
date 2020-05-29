@@ -15,8 +15,12 @@ public class TableModel extends DefaultTableModel {
 		return rows;
 	}
 	
+	public void setRows(List<Row> rows) {
+		this.rows = rows;
+		updateModel();
+	}
+	
     private void updateModel(){
-
         int columnCount = rows.get(1).getFields().keySet().size();
 
         Vector columnVector = DefaultTableModel.convertToVector(rows.get(1).getFields().keySet().toArray());
@@ -27,11 +31,4 @@ public class TableModel extends DefaultTableModel {
         }
         setDataVector(dataVector, columnVector);
     }
-
-    public void setRows(List<Row> rows) {
-        this.rows = rows;
-        updateModel();
-    }
-
-	
 }

@@ -1,5 +1,7 @@
 package app;
 
+import database.DatabaseImplementation;
+import database.MSSQLRepository;
 import gui.MainFrame;
 
 public class Main {
@@ -11,6 +13,7 @@ public class Main {
 
         mainFrame.getAppCore().readDataFromTable("Countries");
         mainFrame.getAppCore().loadResource();
+        //((MSSQLRepository)((DatabaseImplementation)mainFrame.getAppCore().getDatabase()).getRepository()).addRowTest();
 	}
 	
 }

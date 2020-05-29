@@ -8,9 +8,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import database.settings.Settings;
+import gui.MainFrame;
+import observer.enums.NotificationCode;
 import resource.DBNode;
 import resource.data.Row;
 import resource.enums.AttributeType;
@@ -24,6 +28,10 @@ public class MSSQLRepository implements Repository {
 
 	private Settings settings;
     private Connection connection;
+    
+    public Connection getConnection() {
+    	return connection;
+    }
     
     public Settings getSettings() {
     	return settings;
@@ -142,6 +150,52 @@ public class MSSQLRepository implements Repository {
 
         return rows;
     }
-
-
+    
+    public Map<String, String> getColumns(String from) {
+    	Map<String, String> columns = new HashMap<>();
+    	
+    	try {
+    		this.initConnection();
+    		
+    		String query = "SELECT * FROM " + from;
+    		PreparedStatement preparedStatement = connection.prepareStatement(query);
+    		ResultSet rs = preparedStatement.executeQuery();
+    		
+    		while(rs.next()) {
+    			ResultSetMetaData resultSetMetaData = rs.getMetaData();
+    			for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+    				columns.put(resultSetMetaData.getColumnName(i), resultSetMetaData.getColumnTypeName(i));
+    			}
+    		}
+    	} 
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	finally {
+    		this.closeConnection();
+    	}
+    	return columns;
+    }
+    
+    public void addRowQuery(String query, List<String> values) {
+    	try {
+    		this.initConnection();
+    		
+			if(connection == null) {
+				System.out.println("null");
+				return;
+			}
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			for(int i = 0; i < values.size(); i++) {
+				ps.setObject(i+1, values.get(i));
+			}
+			
+			ps.executeUpdate();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		closeConnection();
+    	}
+    }
 }
