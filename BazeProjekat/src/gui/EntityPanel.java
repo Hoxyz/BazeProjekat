@@ -7,6 +7,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.AbstractTableModel;
+
 import gui.table.TableModel;
 
 import resource.implementation.Entity;
@@ -38,5 +41,10 @@ public class EntityPanel extends JPanel {
 	
 	public String getName() {
 		return entity.getName();
+	}
+	
+	public void Refresh () {
+		tableModel.setRows(MainFrame.getInstance().getAppCore().getDatabase().readDataFromTable(entity.getName()));
+		tableModel.fireTableDataChanged();
 	}
 }

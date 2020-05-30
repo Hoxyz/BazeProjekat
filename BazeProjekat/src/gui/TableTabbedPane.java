@@ -56,6 +56,13 @@ public class TableTabbedPane extends JTabbedPane {
 	public Entity getCurrentTable() {
 		return panelTabIndex.elementAt(getSelectedIndex());
 	}
+	
+	public EntityPanel getTableWindow(Entity entity) {
+		if (openTables.containsKey(entity)) {
+			return openTables.get(entity);
+		}
+		return null;
+	}
 
 	public void openTable(Entity entity) {
 		if (!openTables.containsKey(entity)) {

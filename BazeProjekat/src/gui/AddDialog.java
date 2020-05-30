@@ -14,38 +14,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import actions.AddRowAction;
 import database.DatabaseImplementation;
 import database.MSSQLRepository;
 import resource.implementation.Entity;
 
 public class AddDialog {
 	
-	private static AddDialog instance = null;
-	
-	private List<String> columnNames;
-	private List<String> columnValues;
-	
 	private List<JTextField> textFields;
 	
-	private AddDialog() {
+	public AddDialog() {
 		super();
-		columnNames = new ArrayList<>();
-		columnValues = new ArrayList<>();
 		textFields = new ArrayList<>();
 	}
 	
-	public static AddDialog getInstance() {
-		if(instance == null) {
-			instance = new AddDialog();
-		}
-		return instance;
-	}
-	
-	public List<String> getColumnNames() {
-		return columnNames;
-	}
-	
 	public List<String> getColumnValues() {
+		List<String> columnValues = new ArrayList<String>();
 		for(JTextField textField : textFields) {
 			columnValues.add(textField.getText());
 		}
@@ -60,6 +44,8 @@ public class AddDialog {
 		Map<String, String> columns = ((MSSQLRepository)((DatabaseImplementation)
 				MainFrame.getInstance().getAppCore().getDatabase()).getRepository()).getColumns(table.getName());
 		
+		List<String> columnNames = new ArrayList<String>();
+		
 		for(Map.Entry<String, String> column : columns.entrySet()) {
 			JLabel label = new JLabel(column.getKey());
 			columnNames.add(column.getKey());
@@ -73,11 +59,10 @@ public class AddDialog {
 			panel.add(Box.createRigidArea(new Dimension(5, 0)));
 		}
 		
-		JButton buttonAdd = new JButton(MainFrame.getInstance().getActionManager().getAddRowAction());
+		JButton buttonAdd = new JButton(new AddRowAction("Add", table, columnNames, this));
 
 		mainPanel.add(panel);
 		mainPanel.add(buttonAdd);
-		
 		
 		JDialog dialog = new JDialog();
 		

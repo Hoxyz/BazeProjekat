@@ -22,27 +22,28 @@ import database.DatabaseImplementation;
 
 public class AddRowAction extends AbstractAction {
 	
-	public AddRowAction() {
-		this("Add");
-	}
+	private Entity entity;
+	List<String> columnNames;
+	AddDialog addDialog;
 	
-	public AddRowAction(String name) {
+	public AddRowAction(String name, Entity entity, List<String> columnNames, AddDialog addDialog) {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_F);
 		putValue(NAME, name);
 		putValue(SHORT_DESCRIPTION, "Dodaj novi red");
+		
+		this.entity = entity;
+		this.columnNames = columnNames;
+		this.addDialog = addDialog;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String tableName = MainFrame.getInstance().getTablePane().getCurrentTable().getName();
+		String tableName = entity.getName();
 		
 		String query = "INSERT INTO " + tableName + " (";
-		
-		List<String> columnNames = AddDialog.getInstance().getColumnNames();
-		List<String> columnValues = AddDialog.getInstance().getColumnValues();
-		
+
 		for(int i = 0; i < columnNames.size(); i++) {
 			if(i == columnNames.size() - 1) {
 				query += columnNames.get(i);
@@ -53,6 +54,8 @@ public class AddRowAction extends AbstractAction {
 		}
 		
 		query += ") VALUES (";
+		
+		List<String> columnValues = addDialog.getColumnValues();
 		
 		for(int i = 0; i < columnValues.size(); i++) {
 			if(i == columnValues.size() - 1) {
@@ -67,7 +70,7 @@ public class AddRowAction extends AbstractAction {
 		
 		((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
 				.getRepository()).addRowQuery(query, columnValues);
-		MainFrame.getInstance().getAppCore().getTableModel().fireTableDataChanged();
+		MainFrame.getInstance().getTablePane().getTableWindow(entity).Refresh();
 	}
 	
 }
