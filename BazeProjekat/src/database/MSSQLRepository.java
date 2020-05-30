@@ -198,4 +198,26 @@ public class MSSQLRepository implements Repository {
     		closeConnection();
     	}
     }
+    
+    public void removeRowQuery(String query, List<Object> values) {
+    	try {
+    		this.initConnection();
+    		
+			if(connection == null) {
+				System.out.println("null");
+				return;
+			}
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			for(int i = 0; i < values.size(); i++) {
+				ps.setObject(i+1, values.get(i));
+			}
+			
+			ps.executeUpdate();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		closeConnection();
+    	}
+    }
 }

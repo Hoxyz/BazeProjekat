@@ -37,6 +37,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	private TableTabbedPane tablePane;
 	private JScrollPane treeScrollPane;
 	private JButton buttonAddRow;
+	private JButton buttonRemoveRows;
 	private JPanel topTablePanel;
 	private JPanel bottomTablePanel;
 	private JSplitPane splitPane;
@@ -82,10 +83,16 @@ public class MainFrame extends JFrame implements Subscriber {
 		buttonAddRow = new JButton(actionManager.getOpenAddDialogAction());
 		buttonAddRow.setAlignmentX(CENTER_ALIGNMENT);
 		buttonAddRow.setAlignmentY(CENTER_ALIGNMENT);
+		
+		buttonRemoveRows = new JButton(actionManager.getRemoveSelectedRowsAction());
+		buttonRemoveRows.setAlignmentX(CENTER_ALIGNMENT);
+		buttonRemoveRows.setAlignmentY(CENTER_ALIGNMENT);
+		
 		topTablePanel = new JPanel();
 		topTablePanel.setLayout(new BoxLayout(topTablePanel, BoxLayout.PAGE_AXIS));
 		topTablePanel.add(tablePane);
 		topTablePanel.add(buttonAddRow);
+		topTablePanel.add(buttonRemoveRows);
 		
 		bottomTablePanel = new JPanel();
 		bottomTablePanel.setLayout(new BoxLayout(bottomTablePanel, BoxLayout.PAGE_AXIS));
