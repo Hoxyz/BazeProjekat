@@ -16,7 +16,6 @@ public class AppCore extends PublisherImplementation {
 	
 	private Database database;
     private Settings settings;
-    private TableModel tableModel;
     
     //TODO
     private InformationResource ir;
@@ -28,7 +27,6 @@ public class AppCore extends PublisherImplementation {
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
-        tableModel = new TableModel();
         ir = new InformationResource("Test");
     }
 
@@ -45,23 +43,6 @@ public class AppCore extends PublisherImplementation {
     public void loadResource(){
         ir = (InformationResource) this.database.loadResource();
         this.NotifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED, ir));
-    }
-
-    public void readDataFromTable(String fromTable){
-
-        tableModel.setRows(this.database.readDataFromTable(fromTable));
-
-        //Zasto ova linija moze da ostane zakomentarisana?
-        //this.NotifySubscribers(new Notification(NotificationCode.DATA_UPDATED, this.getTableModel()));
-    }
-
-
-    public TableModel getTableModel() {
-        return tableModel;
-    }
-
-    public void setTableModel(TableModel tableModel) {
-        this.tableModel = tableModel;
     }
 
 	public Database getDatabase() {

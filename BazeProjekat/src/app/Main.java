@@ -11,7 +11,6 @@ public class Main {
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setAppCore(appCore);
 
-        mainFrame.getAppCore().readDataFromTable("Countries");
         mainFrame.getAppCore().loadResource();
         //((MSSQLRepository)((DatabaseImplementation)mainFrame.getAppCore().getDatabase()).getRepository()).addRowTest();
 	}

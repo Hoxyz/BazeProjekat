@@ -29,7 +29,7 @@ public class EntityPanel extends JPanel {
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
-		tableModel = new TableModel();
+		tableModel = new TableModel(entity);
 		tableModel.setRows(MainFrame.getInstance().getAppCore().getDatabase().readDataFromTable(entity.getName()));
 		
 		table = new JTable();

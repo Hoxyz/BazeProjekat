@@ -58,7 +58,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	public void setAppCore(AppCore appCore) {
 		this.appCore = appCore;
 		this.appCore.AddSubscriber(this);
-		this.table.setModel(appCore.getTableModel());
+		//this.table.setModel(appCore.getTableModel());
 	}
 
 	private MainFrame() {
