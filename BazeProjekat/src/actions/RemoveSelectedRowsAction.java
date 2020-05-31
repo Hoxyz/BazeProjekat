@@ -16,6 +16,7 @@ import gui.EntityPanel;
 import gui.MainFrame;
 import gui.TableTabbedPane;
 import resource.DBNode;
+import resource.data.Pair;
 import resource.data.Row;
 import resource.implementation.Entity;
 
@@ -44,12 +45,8 @@ public class RemoveSelectedRowsAction extends AbstractAction {
 		int[] selectedRows = panel.getSelectedRows();
 		for (int index : selectedRows) {
 			Row row = panel.getRow(index);
-			Map<String, Object> fields = row.getFields();
-			
-			List<Object> values = new ArrayList<Object>();
-			for (String column : columnNames) {
-				values.add(fields.get(column));
-			}
+						
+			List<Object> values = row.getValuesVector();
 			
 			((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
 					.getRepository()).removeRowQuery(query, values);

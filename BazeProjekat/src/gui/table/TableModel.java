@@ -1,5 +1,6 @@
 package gui.table;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -11,6 +12,10 @@ public class TableModel extends DefaultTableModel {
 	
 	private List<Row> rows;
 	
+	public TableModel() {
+		rows = new ArrayList<Row>();
+	}
+	
 	public List<Row> getRows() {
 		return rows;
 	}
@@ -21,14 +26,26 @@ public class TableModel extends DefaultTableModel {
 	}
 	
     private void updateModel(){
-        int columnCount = rows.get(1).getFields().keySet().size();
+        int columnCount = rows.get(1).getFields().size();
 
-        Vector columnVector = DefaultTableModel.convertToVector(rows.get(1).getFields().keySet().toArray());
+        Vector columnVector = DefaultTableModel.convertToVector(rows.get(1).getColumnNames());
         Vector dataVector = new Vector(columnCount);
 
         for (int i = 0; i < rows.size(); i++){
-            dataVector.add(DefaultTableModel.convertToVector(rows.get(i).getFields().values().toArray()));
+            dataVector.add(DefaultTableModel.convertToVector(rows.get(i).getValuesObjects()));
         }
         setDataVector(dataVector, columnVector);
+    }
+    
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+    	rows.get(row).changeField(col, value);
+    	fireTableCellUpdated(row, col);
+    	updateModel();
+    }
+    
+    @Override
+    public boolean isCellEditable(int row, int col) {
+    	return true;
     }
 }

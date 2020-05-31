@@ -5,7 +5,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Toolkit;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -61,7 +63,16 @@ public class MainFrame extends JFrame implements Subscriber {
 
 	private MainFrame() {
 		super();
+
 		actionManager = new ActionManager();
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+		setSize((int)(screenWidth / 1.5), (int)(screenHeight / 1.5));
+		setTitle("DocuMint");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 	}
 	
 	public void initializeTree() {
@@ -78,7 +89,7 @@ public class MainFrame extends JFrame implements Subscriber {
 		
 		// Create a scroll pane for the JTree
 		treeScrollPane = new JScrollPane(irTree);
-		treeScrollPane.setPreferredSize(new Dimension(260, 150));
+		treeScrollPane.setMinimumSize(new Dimension(200, 150));
 		
 		buttonAddRow = new JButton(actionManager.getOpenAddDialogAction());
 		buttonAddRow.setAlignmentX(CENTER_ALIGNMENT);
@@ -88,11 +99,17 @@ public class MainFrame extends JFrame implements Subscriber {
 		buttonRemoveRows.setAlignmentX(CENTER_ALIGNMENT);
 		buttonRemoveRows.setAlignmentY(CENTER_ALIGNMENT);
 		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+		buttonPanel.add(buttonAddRow);
+		buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		buttonPanel.add(buttonRemoveRows);
+		
 		topTablePanel = new JPanel();
 		topTablePanel.setLayout(new BoxLayout(topTablePanel, BoxLayout.PAGE_AXIS));
 		topTablePanel.add(tablePane);
-		topTablePanel.add(buttonAddRow);
-		topTablePanel.add(buttonRemoveRows);
+		topTablePanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		topTablePanel.add(buttonPanel);
 		
 		bottomTablePanel = new JPanel();
 		bottomTablePanel.setLayout(new BoxLayout(bottomTablePanel, BoxLayout.PAGE_AXIS));
