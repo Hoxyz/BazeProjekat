@@ -175,7 +175,7 @@ public class MSSQLRepository implements Repository {
     	return columns;
     }
     
-    public void addRowQuery(String query, List<String> values) {
+    public void addRowQuery(String query, List<Object> values) {
     	try {
     		this.initConnection();
     		

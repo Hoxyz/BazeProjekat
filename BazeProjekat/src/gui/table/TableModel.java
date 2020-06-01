@@ -62,7 +62,7 @@ public class TableModel extends DefaultTableModel {
 		
 		values.set(col, value);
 		
-		UpdateRowAction.UpdateRow(entity, columnNames, initialValues, values);
+		UpdateRowAction.UpdateRow(entity.getName(), columnNames, initialValues, values);
 		
     	rows.get(row).changeField(col, value);
     	fireTableCellUpdated(row, col);

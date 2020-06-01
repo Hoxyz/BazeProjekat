@@ -3,6 +3,7 @@ package actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
@@ -30,39 +31,23 @@ public class AddRowAction extends AbstractAction {
 		this.addDialog = addDialog;
 	}
 	
+	public static void AddRow(String tableName, List<String> columnNames, List<Object> values) {
+		String query = "INSERT INTO " + tableName + " (";
+		query += columnNames.stream().collect(Collectors.joining(", "));
+		query += ") VALUES (";
+		for (int i = 1; i < values.size(); i++) {
+			query += "?, ";
+		}
+		query += "?)";
+		
+		// TODO: Wrap in a try/catch block
+		((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
+				.getRepository()).addRowQuery(query, values);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		String tableName = entity.getName();
-		
-		String query = "INSERT INTO " + tableName + " (";
-
-		for(int i = 0; i < columnNames.size(); i++) {
-			if(i == columnNames.size() - 1) {
-				query += columnNames.get(i);
-			}
-			else {
-				query += columnNames.get(i) + ", ";
-			}
-		}
-		
-		query += ") VALUES (";
-		
-		List<String> columnValues = addDialog.getColumnValues();
-		
-		for(int i = 0; i < columnValues.size(); i++) {
-			if(i == columnValues.size() - 1) {
-				query += "?";
-			}
-			else {
-				query += "?, ";
-			}
-		}
-		
-		query += ")";
-		
-		((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
-				.getRepository()).addRowQuery(query, columnValues);
+		AddRow(entity.getName(), columnNames, addDialog.getColumnValues());
 		MainFrame.getInstance().getTablePane().getTableWindow(entity).Refresh();
 	}
 	

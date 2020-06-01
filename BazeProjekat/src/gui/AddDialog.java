@@ -63,8 +63,8 @@ public class AddDialog {
 		dialog.setVisible(true);
 	}
 	
-	public List<String> getColumnValues() {
-		List<String> columnValues = new ArrayList<String>();
+	public List<Object> getColumnValues() {
+		List<Object> columnValues = new ArrayList<Object>();
 		for(JTextField textField : textFields) {
 			columnValues.add(textField.getText());
 		}

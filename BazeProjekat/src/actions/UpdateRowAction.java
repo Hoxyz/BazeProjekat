@@ -32,8 +32,8 @@ public class UpdateRowAction extends AbstractAction {
 		this.updateDialog = updateDialog;
 	}
 	
-	public static void UpdateRow(Entity entity, List<String> columnNames, List<Object> initialValues, List<Object> values) {
-		String query = "UPDATE " + entity.getName() + " SET ";
+	public static void UpdateRow(String tableName, List<String> columnNames, List<Object> initialValues, List<Object> values) {
+		String query = "UPDATE " + tableName + " SET ";
 		query += columnNames.stream().collect(Collectors.joining("=?, "));
 		query += "=? WHERE ";
 		query += columnNames.stream().collect(Collectors.joining("=? AND "));
@@ -50,7 +50,7 @@ public class UpdateRowAction extends AbstractAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		UpdateRow(entity, columnNames, updateDialog.getInitialValues(), updateDialog.getColumnValues());
+		UpdateRow(entity.getName(), columnNames, updateDialog.getInitialValues(), updateDialog.getColumnValues());
 		MainFrame.getInstance().getTablePane().getTableWindow(entity).Refresh();
 	}
 
