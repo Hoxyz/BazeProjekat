@@ -1,22 +1,17 @@
 package actions;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
-import javax.swing.KeyStroke;
-
 import database.DatabaseImplementation;
 import database.MSSQLRepository;
 import gui.EntityPanel;
 import gui.MainFrame;
 import gui.TableTabbedPane;
 import resource.DBNode;
-import resource.data.Pair;
 import resource.data.Row;
 import resource.implementation.Entity;
 

@@ -1,10 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
 import javax.swing.Box;
@@ -38,8 +35,11 @@ public class MainFrame extends JFrame implements Subscriber {
 	private JTable table;
 	private TableTabbedPane tablePane;
 	private JScrollPane treeScrollPane;
+	
 	private JButton buttonAddRow;
 	private JButton buttonRemoveRows;
+	private JButton buttonUpdateRow;
+	
 	private JPanel topTablePanel;
 	private JPanel bottomTablePanel;
 	private JSplitPane splitPane;
@@ -58,7 +58,6 @@ public class MainFrame extends JFrame implements Subscriber {
 	public void setAppCore(AppCore appCore) {
 		this.appCore = appCore;
 		this.appCore.AddSubscriber(this);
-		//this.table.setModel(appCore.getTableModel());
 	}
 
 	private MainFrame() {
@@ -95,6 +94,10 @@ public class MainFrame extends JFrame implements Subscriber {
 		buttonAddRow.setAlignmentX(CENTER_ALIGNMENT);
 		buttonAddRow.setAlignmentY(CENTER_ALIGNMENT);
 		
+		buttonUpdateRow = new JButton(actionManager.getOpenUpdateDialogAction());
+		buttonUpdateRow.setAlignmentX(CENTER_ALIGNMENT);
+		buttonUpdateRow.setAlignmentY(CENTER_ALIGNMENT);
+		
 		buttonRemoveRows = new JButton(actionManager.getRemoveSelectedRowsAction());
 		buttonRemoveRows.setAlignmentX(CENTER_ALIGNMENT);
 		buttonRemoveRows.setAlignmentY(CENTER_ALIGNMENT);
@@ -102,6 +105,8 @@ public class MainFrame extends JFrame implements Subscriber {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 		buttonPanel.add(buttonAddRow);
+		buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		buttonPanel.add(buttonUpdateRow);
 		buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		buttonPanel.add(buttonRemoveRows);
 		

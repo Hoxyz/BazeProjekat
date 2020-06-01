@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 
+import actions.UpdateRowAction;
 import database.DatabaseImplementation;
 import database.MSSQLRepository;
 import gui.MainFrame;
-import resource.DBNode;
 import resource.data.Pair;
 import resource.data.Row;
 import resource.implementation.Entity;
@@ -48,21 +48,21 @@ public class TableModel extends DefaultTableModel {
     
     @Override
     public void setValueAt(Object value, int row, int col) {
+    	System.out.println("Column " + col);
+    	
     	List<String> columnNames = new ArrayList<String>();
-		String query = "UPDATE " + entity.getName() + " SET " + rows.get(row).getFields().get(col).getFirst() + "=? WHERE ";
-		
+		List<Object> initialValues = new ArrayList<Object>();
 		List<Object> values = new ArrayList<Object>();
-		values.add(value);
 		
 		for (Pair<String, Object> pair : rows.get(row).getFields()) {
 			columnNames.add(pair.getFirst());
+			initialValues.add(pair.getSecond());
 			values.add(pair.getSecond());
 		}
-		query += columnNames.stream().collect(Collectors.joining("=? AND "));
-		query += "=?";
 		
-		((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
-				.getRepository()).removeRowQuery(query, values);
+		values.set(col, value);
+		
+		UpdateRowAction.UpdateRow(entity, columnNames, initialValues, values);
 		
     	rows.get(row).changeField(col, value);
     	fireTableCellUpdated(row, col);

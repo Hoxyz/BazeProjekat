@@ -1,7 +1,5 @@
 package app;
 
-import database.DatabaseImplementation;
-import database.MSSQLRepository;
 import gui.MainFrame;
 
 public class Main {

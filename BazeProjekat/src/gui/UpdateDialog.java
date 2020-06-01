@@ -15,43 +15,49 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import actions.AddRowAction;
+import actions.UpdateRowAction;
 import database.DatabaseImplementation;
 import database.MSSQLRepository;
+import resource.data.Pair;
+import resource.data.Row;
 import resource.implementation.Entity;
 
-public class AddDialog {
+public class UpdateDialog {
 	
 	private List<JTextField> textFields;
+	private List<Object> initialValues;
 	
-	public AddDialog(Entity table) {
+	public UpdateDialog(Entity entity, Row row) {
 		textFields = new ArrayList<>();
 		
 		JPanel mainPanel = new JPanel();
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
 		
-		Map<String, String> columns = ((MSSQLRepository)((DatabaseImplementation)
-				MainFrame.getInstance().getAppCore().getDatabase()).getRepository()).getColumns(table.getName());
-		
 		List<String> columnNames = new ArrayList<String>();
+		initialValues = new ArrayList<Object>();
 		
-		for(Map.Entry<String, String> column : columns.entrySet()) {
-			JLabel label = new JLabel(column.getKey());
-			columnNames.add(column.getKey());
-			JTextField textField = new JTextField(column.getValue());
+		for (Pair<String, Object> pair : row.getFields()) {
+			columnNames.add(pair.getFirst());
+			JLabel label = new JLabel(pair.getFirst());
+			
+			initialValues.add(pair.getSecond());
+			JTextField textField = new JTextField(pair.getSecond().toString());
 			textFields.add(textField);
+			
 			JPanel columnPanel = new JPanel();
 			columnPanel.setLayout(new BoxLayout(columnPanel, BoxLayout.PAGE_AXIS));
 			columnPanel.add(label);
 			columnPanel.add(textField);
+			
 			panel.add(columnPanel, BorderLayout.CENTER);
 			panel.add(Box.createRigidArea(new Dimension(5, 0)));
 		}
 		
-		JButton buttonAdd = new JButton(new AddRowAction("Add", table, columnNames, this));
+		JButton buttonUpdate = new JButton(new UpdateRowAction("Update", entity, columnNames, this));
 
 		mainPanel.add(panel);
-		mainPanel.add(buttonAdd);
+		mainPanel.add(buttonUpdate);
 		
 		JDialog dialog = new JDialog();
 		
@@ -63,8 +69,13 @@ public class AddDialog {
 		dialog.setVisible(true);
 	}
 	
-	public List<String> getColumnValues() {
-		List<String> columnValues = new ArrayList<String>();
+	public List<Object> getInitialValues() {
+		return initialValues;
+	}
+	
+	public List<Object> getColumnValues() {
+		List<Object> columnValues = new ArrayList<Object>();
+		
 		for(JTextField textField : textFields) {
 			columnValues.add(textField.getText());
 		}

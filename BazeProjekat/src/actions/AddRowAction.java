@@ -2,8 +2,6 @@ package actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -11,13 +9,8 @@ import javax.swing.KeyStroke;
 
 import gui.AddDialog;
 import gui.MainFrame;
-import gui.table.TableModel;
-import observer.Notification;
-import observer.enums.NotificationCode;
 import resource.implementation.Entity;
-import resource.implementation.InformationResource;
 import database.MSSQLRepository;
-import database.Repository;
 import database.DatabaseImplementation;
 
 public class AddRowAction extends AbstractAction {

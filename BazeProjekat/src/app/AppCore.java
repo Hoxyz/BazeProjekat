@@ -5,7 +5,6 @@ import database.DatabaseImplementation;
 import database.MSSQLRepository;
 import database.settings.Settings;
 import database.settings.SettingsImplementation;
-import gui.table.TableModel;
 import observer.Notification;
 import observer.enums.NotificationCode;
 import observer.implementation.PublisherImplementation;

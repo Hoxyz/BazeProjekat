@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import database.settings.Settings;
-import gui.MainFrame;
-import observer.enums.NotificationCode;
 import resource.DBNode;
 import resource.data.Row;
 import resource.enums.AttributeType;

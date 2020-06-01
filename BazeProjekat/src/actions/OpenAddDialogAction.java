@@ -28,8 +28,6 @@ public class OpenAddDialogAction extends AbstractAction {
 		int index = MainFrame.getInstance().getTablePane().getSelectedIndex();
 		Entity table = MainFrame.getInstance().getTablePane().getCurrentTable();
 		System.out.println(table);
-		AddDialog dialog = new AddDialog();
-		dialog.openAddDialog(table);
+		AddDialog dialog = new AddDialog(table);
 	}
-	
 }
