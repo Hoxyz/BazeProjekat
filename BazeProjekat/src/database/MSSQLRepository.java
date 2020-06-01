@@ -72,7 +72,7 @@ public class MSSQLRepository implements Repository {
             String tableType[] = {"TABLE"};
             ResultSet tables = metaData.getTables(connection.getCatalog(), null, null, tableType);
 
-            while (tables.next()){
+            while (tables.next()) {
 
                 String tableName = tables.getString("TABLE_NAME");
                 Entity newTable = new Entity(tableName, ir);
@@ -110,12 +110,14 @@ public class MSSQLRepository implements Repository {
                 }
             }
             
+            tables = metaData.getTables(connection.getCatalog(), null, null, tableType);
+            
             while (tables.next()) {
             	String tableName = tables.getString("TABLE_NAME");
             	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
                 
                 while (foreignKeys.next()) {
-                	String fkTableName = foreignKeys.getString("TABLE_NAME");
+                	String fkTableName = foreignKeys.getString("FKTABLE_NAME");
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 }
             }
