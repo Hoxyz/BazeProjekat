@@ -18,7 +18,7 @@ public class OpenAddDialogAction extends AbstractAction {
 	
 	public OpenAddDialogAction(String name) {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-		putValue(MNEMONIC_KEY, KeyEvent.VK_F);
+		putValue(MNEMONIC_KEY, KeyEvent.VK_A);
 		putValue(NAME, name);
 		putValue(SHORT_DESCRIPTION, "Dodaj novi red");
 	}

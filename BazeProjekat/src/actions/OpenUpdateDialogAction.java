@@ -23,7 +23,7 @@ public class OpenUpdateDialogAction extends AbstractAction {
 	
 	public OpenUpdateDialogAction(String name) {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
-		putValue(MNEMONIC_KEY, KeyEvent.VK_F);
+		putValue(MNEMONIC_KEY, KeyEvent.VK_U);
 		putValue(NAME, name);
 		putValue(SHORT_DESCRIPTION, "Promeni selektovani red");
 	}

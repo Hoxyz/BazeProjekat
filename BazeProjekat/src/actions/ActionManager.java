@@ -6,6 +6,8 @@ public class ActionManager {
 	private OpenUpdateDialogAction openUpdateDialogAction;
 	private RemoveSelectedRowsAction removeSelectedRowsAction;
 	
+	private OpenSearchDialogAction openSearchDialogAction;
+	
 	public ActionManager() {
 		InitializeActions();
 	}
@@ -14,6 +16,8 @@ public class ActionManager {
 		openAddDialogAction = new OpenAddDialogAction();
 		openUpdateDialogAction = new OpenUpdateDialogAction();
 		removeSelectedRowsAction = new RemoveSelectedRowsAction();
+		
+		openSearchDialogAction = new OpenSearchDialogAction();
 	}
 	
 	public OpenAddDialogAction getOpenAddDialogAction() {
@@ -26,5 +30,9 @@ public class ActionManager {
 	
 	public RemoveSelectedRowsAction getRemoveSelectedRowsAction () {
 		return removeSelectedRowsAction;
+	}
+	
+	public OpenSearchDialogAction getOpenSearchDialogAction () {
+		return openSearchDialogAction;
 	}
 }
