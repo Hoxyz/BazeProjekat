@@ -70,6 +70,8 @@ public class TableTabbedPane extends JTabbedPane {
 			addTab(panel.getName(), panel);
 			openTables.put(entity, panel);
 			panelTabIndex.add(entity);
+			
+			setSelectedIndex(panelTabIndex.size() - 1);
 		} else {
 			int index = panelTabIndex.indexOf(entity);
 			setSelectedIndex(index);
