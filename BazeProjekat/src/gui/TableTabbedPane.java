@@ -38,7 +38,7 @@ public class TableTabbedPane extends JTabbedPane {
 		onSetSelectedIndex(arg0);
 	}
 
-	private void Initialize() {
+	protected void Initialize() {
 		openTables = new HashMap<Entity, EntityPanel>();
 		panelTabIndex = new Vector<Entity>();
 		
@@ -95,5 +95,13 @@ public class TableTabbedPane extends JTabbedPane {
 			panelTabIndex.remove(entity);
 			openTables.remove(entity);
 		}
+	}
+	
+	@Override
+	public void removeAll() {
+		super.removeAll();
+		
+		openTables = new HashMap<Entity, EntityPanel>();
+		panelTabIndex = new Vector<Entity>();
 	}
 }

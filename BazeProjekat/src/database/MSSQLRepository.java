@@ -117,7 +117,7 @@ public class MSSQLRepository implements Repository {
             	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
                 
                 while (foreignKeys.next()) {
-                	String fkTableName = foreignKeys.getString("FKTABLE_NAME");
+                	String fkTableName = foreignKeys.getString("PKTABLE_NAME");
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 }
             }
