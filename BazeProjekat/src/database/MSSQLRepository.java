@@ -61,7 +61,6 @@ public class MSSQLRepository implements Repository {
         }
     }
 
-
     @Override
     public DBNode getSchema() {
         try{
@@ -98,6 +97,26 @@ public class MSSQLRepository implements Repository {
                 	String pkName = primaryKeys.getString("PK_NAME");
                 	AttributeConstraint attrConstraint = new AttributeConstraint(pkName, ((Attribute)newTable.getChildByName(columnName)), ConstraintType.PRIMARY_KEY);
                 	((Attribute)newTable.getChildByName(columnName)).addChild(attrConstraint);
+                }
+                
+                ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
+                
+                while (foreignKeys.next()) {
+                	String fkTableName = foreignKeys.getString("FKTABLE_NAME");
+                	String columnName = foreignKeys.getString("FKCOLUMN_NAME");
+                	String fkName = foreignKeys.getString("FK_NAME");
+                	AttributeConstraint attrConstraint = new AttributeConstraint(fkName, ((Attribute)newTable.getChildByName(columnName)), ConstraintType.FOREIGN_KEY);
+                	((Attribute)newTable.getChildByName(columnName)).addChild(attrConstraint);
+                }
+            }
+            
+            while (tables.next()) {
+            	String tableName = tables.getString("TABLE_NAME");
+            	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
+                
+                while (foreignKeys.next()) {
+                	String fkTableName = foreignKeys.getString("TABLE_NAME");
+                	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 }
             }
             

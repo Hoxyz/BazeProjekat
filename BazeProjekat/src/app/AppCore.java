@@ -38,7 +38,6 @@ public class AppCore extends PublisherImplementation {
         return settingsImplementation;
     }
 
-
     public void loadResource(){
         ir = (InformationResource) this.database.loadResource();
         this.NotifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED, ir));

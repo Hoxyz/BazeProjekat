@@ -34,6 +34,7 @@ public class MainFrame extends JFrame implements Subscriber {
 	
 	private JTable table;
 	private TableTabbedPane tablePane;
+	private RelationsTabbedPane relationsPane;
 	private JScrollPane treeScrollPane;
 	
 	private JButton buttonAddRow;
@@ -122,6 +123,7 @@ public class MainFrame extends JFrame implements Subscriber {
 		bottomTablePanel = new JPanel();
 		bottomTablePanel.setLayout(new BoxLayout(bottomTablePanel, BoxLayout.PAGE_AXIS));
 		bottomTablePanel.setPreferredSize(new Dimension(500, 400));
+		bottomTablePanel.add(relationsPane);
 		
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
@@ -156,6 +158,10 @@ public class MainFrame extends JFrame implements Subscriber {
 		return tablePane;
 	}
 	
+	public RelationsTabbedPane getRelationsPane() {
+		return relationsPane;
+	}
+	
 	private void init() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		table = new JTable();
@@ -163,6 +169,7 @@ public class MainFrame extends JFrame implements Subscriber {
         table.setFillsViewportHeight(true);
         
         tablePane = new TableTabbedPane();
+        relationsPane = new RelationsTabbedPane();
 	}
 	
 	@Override
