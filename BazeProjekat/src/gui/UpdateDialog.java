@@ -22,7 +22,7 @@ import resource.data.Pair;
 import resource.data.Row;
 import resource.implementation.Entity;
 
-public class UpdateDialog {
+public class UpdateDialog extends JDialog {
 	
 	private List<JTextField> textFields;
 	private List<Object> initialValues;
@@ -59,14 +59,12 @@ public class UpdateDialog {
 		mainPanel.add(panel);
 		mainPanel.add(buttonUpdate);
 		
-		JDialog dialog = new JDialog();
-		
-		dialog.add(mainPanel, BorderLayout.CENTER);
+		add(mainPanel, BorderLayout.CENTER);
 					
-		dialog.pack();
-		dialog.revalidate();
-		dialog.setLocationRelativeTo(null);
-		dialog.setVisible(true);
+		pack();
+		revalidate();
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	public List<Object> getInitialValues() {

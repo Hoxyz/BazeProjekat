@@ -19,7 +19,7 @@ import database.DatabaseImplementation;
 import database.MSSQLRepository;
 import resource.implementation.Entity;
 
-public class AddDialog {
+public class AddDialog extends JDialog {
 	
 	private List<JTextField> textFields;
 	
@@ -53,14 +53,12 @@ public class AddDialog {
 		mainPanel.add(panel);
 		mainPanel.add(buttonAdd);
 		
-		JDialog dialog = new JDialog();
-		
-		dialog.add(mainPanel, BorderLayout.CENTER);
+		add(mainPanel, BorderLayout.CENTER);
 					
-		dialog.pack();
-		dialog.revalidate();
-		dialog.setLocationRelativeTo(null);
-		dialog.setVisible(true);
+		pack();
+		revalidate();
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	public List<Object> getColumnValues() {
