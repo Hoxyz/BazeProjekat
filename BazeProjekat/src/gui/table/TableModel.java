@@ -20,9 +20,12 @@ public class TableModel extends DefaultTableModel {
 	private Entity entity;
 	private List<Row> rows;
 	
+	boolean editable;
+	
 	public TableModel(Entity entity) {
 		this.entity = entity;
 		rows = new ArrayList<Row>();
+		editable = true;
 	}
 	
 	public List<Row> getRows() {
@@ -32,6 +35,10 @@ public class TableModel extends DefaultTableModel {
 	public void setRows(List<Row> rows) {
 		this.rows = rows;
 		updateModel();
+	}
+	
+	public void setEditable (boolean editable) {
+		this.editable = editable;
 	}
 	
     private void updateModel(){
@@ -70,7 +77,7 @@ public class TableModel extends DefaultTableModel {
     }
     
     @Override
-    public boolean isCellEditable(int row, int col) {
-    	return true;
+    public boolean isCellEditable (int row, int col) {
+    	return editable;
     }
 }

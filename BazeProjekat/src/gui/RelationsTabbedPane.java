@@ -13,6 +13,7 @@ public class RelationsTabbedPane extends TableTabbedPane {
 		
 		for(Entity relation : table.getRelations()) {
 			this.openTable(relation);
+			getTableWindow(relation).setEditable(false);
 		}
 	}
 	

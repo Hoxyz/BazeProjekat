@@ -52,4 +52,9 @@ public class EntityPanel extends JPanel {
 		tableModel.setRows(MainFrame.getInstance().getAppCore().getDatabase().readDataFromTable(entity.getName()));
 		tableModel.fireTableDataChanged();
 	}
+	
+	public void setEditable (boolean editable) {
+		tableModel.setEditable (editable);
+	}
+	
 }
