@@ -62,14 +62,17 @@ public class MainFrame extends JFrame implements Subscriber {
 
 	private MainFrame() {
 		super();
-
+		
 		actionManager = new ActionManager();
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
+		
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 		setSize((int)(screenWidth / 1.5), (int)(screenHeight / 1.5));
-		setTitle("DocuMint");
+		
+		setTitle("Baze projekat");
+		setJMenuBar(new MainMenuBar(this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
