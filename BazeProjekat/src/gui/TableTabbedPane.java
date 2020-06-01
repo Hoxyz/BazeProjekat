@@ -11,8 +11,8 @@ import resource.implementation.Entity;
 
 public class TableTabbedPane extends JTabbedPane {
 	
-	private HashMap<Entity, EntityPanel> openTables;
-	private Vector<Entity> panelTabIndex;
+	protected HashMap<Entity, EntityPanel> openTables;
+	protected Vector<Entity> panelTabIndex;
 
 	public TableTabbedPane() {
 		Initialize();
@@ -26,6 +26,16 @@ public class TableTabbedPane extends JTabbedPane {
 	public TableTabbedPane(int tabPlacement, int tabLayoutPolicy) {
 		super(tabPlacement, tabLayoutPolicy);
 		Initialize();
+	}
+	
+	protected void onSetSelectedIndex(int index) {
+		MainFrame.getInstance().getRelationsPane().openRelations(panelTabIndex.get(index));		
+	}
+	
+	@Override
+	public void setSelectedIndex(int arg0) {
+		super.setSelectedIndex(arg0);
+		onSetSelectedIndex(arg0);
 	}
 
 	private void Initialize() {
@@ -67,10 +77,10 @@ public class TableTabbedPane extends JTabbedPane {
 	public void openTable(Entity entity) {
 		if (!openTables.containsKey(entity)) {
 			EntityPanel panel = new EntityPanel(entity);
-			addTab(panel.getName(), panel);
 			openTables.put(entity, panel);
 			panelTabIndex.add(entity);
 			
+			addTab(panel.getName(), panel);
 			setSelectedIndex(panelTabIndex.size() - 1);
 		} else {
 			int index = panelTabIndex.indexOf(entity);
