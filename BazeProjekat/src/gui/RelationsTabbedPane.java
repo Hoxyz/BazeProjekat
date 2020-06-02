@@ -1,9 +1,13 @@
 package gui;
 
+import java.util.List;
+import java.util.Map;
+
+import resource.data.Row;
 import resource.implementation.Entity;
 
 public class RelationsTabbedPane extends TableTabbedPane {
-
+	
 	public RelationsTabbedPane() {
 		Initialize();
 	}
@@ -21,5 +25,4 @@ public class RelationsTabbedPane extends TableTabbedPane {
 	protected void onSetSelectedIndex(int index) {
 		// :)
 	}
-	
 }

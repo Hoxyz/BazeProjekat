@@ -27,19 +27,19 @@ public class MSSQLRepository implements Repository {
 	private Settings settings;
     private Connection connection;
     
-    public Connection getConnection() {
+    public Connection getConnection () {
     	return connection;
     }
     
-    public Settings getSettings() {
+    public Settings getSettings () {
     	return settings;
     }
     
-    public MSSQLRepository(Settings settings) {
+    public MSSQLRepository (Settings settings) {
         this.settings = settings;
     }
-
-    private void initConnection() throws SQLException, ClassNotFoundException{
+    
+    private void initConnection () throws SQLException, ClassNotFoundException{
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
         String ip = (String) settings.getParameter("mssql_ip");
         String database = (String) settings.getParameter("mssql_database");
@@ -48,8 +48,8 @@ public class MSSQLRepository implements Repository {
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:jtds:sqlserver://"+ip+"/"+database,username,password);
     }
-
-    private void closeConnection(){
+    
+    private void closeConnection (){
         try{
             connection.close();
         }
@@ -60,9 +60,9 @@ public class MSSQLRepository implements Repository {
             connection = null;
         }
     }
-
+    
     @Override
-    public DBNode getSchema() {
+    public DBNode getSchema () {
         try{
             this.initConnection();
 
@@ -115,14 +115,14 @@ public class MSSQLRepository implements Repository {
             while (tables.next()) {
             	String tableName = tables.getString("TABLE_NAME");
             	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
-                
+            	
                 while (foreignKeys.next()) {
+                	System.out.println(foreignKeys.getString("FKCOLUMN_NAME"));
                 	String fkTableName = foreignKeys.getString("PKTABLE_NAME");
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 }
             }
             
-            //TODO Ogranicenja nad kolonama? Relacije?
             return ir;
             // String isNullable = columns.getString("IS_NULLABLE");
             // ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, table.getName());
@@ -139,7 +139,7 @@ public class MSSQLRepository implements Repository {
     }
 
     @Override
-    public List<Row> get(String from) {
+    public List<Row> get (String from) {
 
         List<Row> rows = new ArrayList<>();
         try{
@@ -170,7 +170,7 @@ public class MSSQLRepository implements Repository {
         return rows;
     }
     
-    public Map<String, String> getColumns(String from) {
+    public Map<String, String> getColumns (String from) {
     	Map<String, String> columns = new HashMap<>();
     	
     	try {
@@ -196,7 +196,7 @@ public class MSSQLRepository implements Repository {
     	return columns;
     }
     
-    public List<Row> SelectQuery(String query, List<Object> values) {
+    public List<Row> SelectQuery (String query, List<Object> values) {
 		List<Row> rows = new ArrayList<Row>();
 		
     	try {
@@ -235,7 +235,7 @@ public class MSSQLRepository implements Repository {
     	}
     }
     
-    public void addRowQuery(String query, List<Object> values) {
+    public void addRowQuery (String query, List<Object> values) {
     	try {
     		this.initConnection();
     		
@@ -257,7 +257,7 @@ public class MSSQLRepository implements Repository {
     	}
     }
     
-    public void removeRowQuery(String query, List<Object> values) {
+    public void removeRowQuery (String query, List<Object> values) {
     	try {
     		this.initConnection();
     		

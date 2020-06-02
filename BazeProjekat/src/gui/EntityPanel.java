@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -29,6 +31,20 @@ public class EntityPanel extends JPanel {
 		table = new JTable();
 		table.setModel(tableModel);
 		
+		table.addMouseListener (new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int rowAtPoint = table.rowAtPoint(e.getPoint());
+				int colAtPoint = table.columnAtPoint(e.getPoint());
+				if(rowAtPoint != -1) {
+					table.changeSelection(rowAtPoint, colAtPoint, false, false);
+					System.out.println("clicky");
+				} else {
+					System.out.println("fail click");
+				}
+			}
+		});
+		
 		scrollPane = new JScrollPane(table);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(new Dimension(1920, 1080));
@@ -36,11 +52,11 @@ public class EntityPanel extends JPanel {
 		add(scrollPane, BorderLayout.EAST);
 	}
 	
-	public String getName() {
+	public String getName () {
 		return entity.getName();
 	}
 	
-	public int[] getSelectedRows() {
+	public int[] getSelectedRows () {
 		return table.getSelectedRows();
 	}
 	
