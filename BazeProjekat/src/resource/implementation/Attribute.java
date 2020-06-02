@@ -8,10 +8,7 @@ public class Attribute extends DBNodeComposite {
 
 	private AttributeType attributeType;
 	private int length;
-//	TODO
-//	inRelationWith da predstavi vezu: npr Employees.DeptID pokazuje na Departments.DeptID
-//	htela da ako je neki atribut strani kljuc on "pokazuje" na neki primarni kljuc iz neke
-//	strane tabele
+
 	private Attribute inRelationWith;
 	
 	public Attribute(String name, DBNode parent) {
@@ -23,7 +20,15 @@ public class Attribute extends DBNodeComposite {
         this.attributeType = attributeType;
         this.length = length;
 	}
-
+	
+	public void setInRelationWith (Attribute inRelationWith) {
+		this.inRelationWith = inRelationWith;
+	}
+	
+	public Attribute getInRelationWith () {
+		return inRelationWith;
+	}
+	
 	@Override
 	public void addChild(DBNode child) {
 		if(child != null && child instanceof AttributeConstraint) {

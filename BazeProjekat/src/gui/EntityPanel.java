@@ -31,20 +31,6 @@ public class EntityPanel extends JPanel {
 		table = new JTable();
 		table.setModel(tableModel);
 		
-		table.addMouseListener (new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int rowAtPoint = table.rowAtPoint(e.getPoint());
-				int colAtPoint = table.columnAtPoint(e.getPoint());
-				if(rowAtPoint != -1) {
-					table.changeSelection(rowAtPoint, colAtPoint, false, false);
-					System.out.println("clicky");
-				} else {
-					System.out.println("fail click");
-				}
-			}
-		});
-		
 		scrollPane = new JScrollPane(table);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setPreferredSize(new Dimension(1920, 1080));
@@ -60,8 +46,12 @@ public class EntityPanel extends JPanel {
 		return table.getSelectedRows();
 	}
 	
-	public Row getRow(int index) {
+	public Row getRow (int index) {
 		return tableModel.getRows().get(index);
+	}
+	
+	public JTable getTable () {
+		return table;
 	}
 	
 	public void Refresh () {

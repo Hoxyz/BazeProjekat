@@ -8,7 +8,7 @@ public class Row {
 	private String name;
 	
     private Vector<Pair<String, Object>> fields;
-
+    
     public void setName(String name) {
     	this.name = name;
     }
@@ -52,15 +52,12 @@ public class Row {
     public void changeField(int index, Object value) {
     	fields.get(index).setSecond(value);
     }
-
+    
     public void addField(String fieldName, Object value) {
         this.fields.add(new Pair(fieldName, value));
     }
-
+    
     public void removeField(String fieldName) {
         this.fields.remove(fieldName);
     }
-    
-    
-    
 }

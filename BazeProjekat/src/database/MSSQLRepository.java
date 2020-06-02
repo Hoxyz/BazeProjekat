@@ -49,7 +49,7 @@ public class MSSQLRepository implements Repository {
         connection = DriverManager.getConnection("jdbc:jtds:sqlserver://"+ip+"/"+database,username,password);
     }
     
-    private void closeConnection (){
+    private void closeConnection () {
         try{
             connection.close();
         }
@@ -117,16 +117,22 @@ public class MSSQLRepository implements Repository {
             	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
             	
                 while (foreignKeys.next()) {
-                	System.out.println(foreignKeys.getString("FKCOLUMN_NAME"));
+                	String fkName = foreignKeys.getString("FKCOLUMN_NAME");
                 	String fkTableName = foreignKeys.getString("PKTABLE_NAME");
+                	
+                	// foreign key in this table
+                	Attribute attribute1 = (Attribute)((Entity)ir.getChildByName(tableName)).getChildByName(fkName);
+                	// foreign key in other table
+                	Attribute attribute2 = (Attribute)((Entity)ir.getChildByName(fkTableName)).getChildByName(fkName);
+                	
+                	attribute1.setInRelationWith(attribute2);
+                	attribute2.setInRelationWith(attribute1);
+                	
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 }
             }
             
             return ir;
-            // String isNullable = columns.getString("IS_NULLABLE");
-            // ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, table.getName());
-            // ResultSet primaryKeys = metaData.getPrimaryKeys(connection.getCatalog(), null, table.getName());
         }
         catch (Exception e) {
             e.printStackTrace();
