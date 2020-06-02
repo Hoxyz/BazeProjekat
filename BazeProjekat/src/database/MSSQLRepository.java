@@ -231,8 +231,8 @@ public class MSSQLRepository implements Repository {
     		rows = null;
     	} finally {
     		closeConnection();
-    		return rows;
     	}
+    	return rows;
     }
     
     public void addRowQuery (String query, List<Object> values) {

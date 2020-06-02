@@ -6,7 +6,7 @@ import java.util.List;
 import resource.DBNode;
 import resource.DBNodeComposite;
 
-public class Entity extends DBNodeComposite{
+public class Entity extends DBNodeComposite {
 	
 	List<Entity> relations;
 	
