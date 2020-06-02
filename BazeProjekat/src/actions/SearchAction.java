@@ -33,14 +33,17 @@ public class SearchAction extends AbstractAction {
 		
 		String query = "SELECT ";
 		query += columns.stream().map(column -> column.toString()).collect(Collectors.joining(", "));
-		query += " FROM " + tableName + " WHERE ";
+		query += " FROM " + tableName;
 		
-		for (int i = 0; i < parameters.size(); i++) {
-			query += parameters.get(i).getFirst();
-			values.add(parameters.get(i).getSecond());
-			
-			if (i < logicalOperators.size()) {
-				query += " " + logicalOperators.get(i) + " ";
+		if (parameters.size() > 0) {
+			query +=  " WHERE ";
+			for (int i = 0; i < parameters.size(); i++) {
+				query += parameters.get(i).getFirst();
+				values.add(parameters.get(i).getSecond());
+				
+				if (i < logicalOperators.size()) {
+					query += " " + logicalOperators.get(i) + " ";
+				}
 			}
 		}
 		

@@ -7,6 +7,7 @@ public class ActionManager {
 	private RemoveSelectedRowsAction removeSelectedRowsAction;
 	
 	private OpenSearchDialogAction openSearchDialogAction;
+	private OpenReportDialogAction openReportDialogAction;
 	
 	public ActionManager() {
 		InitializeActions();
@@ -18,6 +19,7 @@ public class ActionManager {
 		removeSelectedRowsAction = new RemoveSelectedRowsAction();
 		
 		openSearchDialogAction = new OpenSearchDialogAction();
+		openReportDialogAction = new OpenReportDialogAction();
 	}
 	
 	public OpenAddDialogAction getOpenAddDialogAction() {
@@ -34,5 +36,9 @@ public class ActionManager {
 	
 	public OpenSearchDialogAction getOpenSearchDialogAction () {
 		return openSearchDialogAction;
+	}
+	
+	public OpenReportDialogAction getOpenReportDialogAction () {
+		return openReportDialogAction;
 	}
 }

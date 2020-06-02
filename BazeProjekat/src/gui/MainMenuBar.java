@@ -20,8 +20,11 @@ public class MainMenuBar extends JMenuBar {
 		JMenu analyzeMenu = new JMenu("Analyze");
 		analyzeMenu.setMnemonic(KeyEvent.VK_A);
 		
-		// File -> New
+		// Analyze -> Search
 		analyzeMenu.add(actionManager.getOpenSearchDialogAction());
+		
+		// Analyze -> Reports
+		analyzeMenu.add(actionManager.getOpenReportDialogAction());
 		
 		add(analyzeMenu);
 		

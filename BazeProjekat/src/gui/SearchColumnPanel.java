@@ -21,6 +21,7 @@ import javax.swing.event.ListDataListener;
 import resource.data.Pair;
 import resource.enums.AttributeType;
 import resource.implementation.Attribute;
+import utils.Utilities;
 
 public class SearchColumnPanel extends JPanel {
 
@@ -29,11 +30,6 @@ public class SearchColumnPanel extends JPanel {
 	private JComboBox<Object> columnBox;
 	private JComboBox<Object> operatorBox;
 	private JTextField textField;
-	
-	private static boolean AttributeIsNumeric(AttributeType attrType) {
-		return attrType == AttributeType.INT || attrType == AttributeType.NUMERIC || 
-				attrType == AttributeType.BIGINT || attrType == AttributeType.FLOAT || attrType == AttributeType.REAL;
-	}
 	
 	public SearchColumnPanel(List<Attribute> columns) {
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -49,7 +45,7 @@ public class SearchColumnPanel extends JPanel {
 		operatorBox.setMaximumSize(new Dimension(50, 30));
 		add(operatorBox);
 		
-		if (columns.size() == 0 || !AttributeIsNumeric(columns.get(0).getAttributeType())) {
+		if (columns.size() == 0 || !Utilities.AttributeIsNumeric(columns.get(0).getAttributeType())) {
 			operatorBox.setVisible(false);
 		}
 		
@@ -65,7 +61,7 @@ public class SearchColumnPanel extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					AttributeType attrType = ((Attribute)e.getItem()).getAttributeType();
-					boolean isNumeric = AttributeIsNumeric(attrType);
+					boolean isNumeric = Utilities.AttributeIsNumeric(attrType);
 					
 					if (isNumeric) {
 						operatorBox.setVisible(true);

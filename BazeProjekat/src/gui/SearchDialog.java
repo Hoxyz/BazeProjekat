@@ -37,6 +37,8 @@ public class SearchDialog extends JDialog {
 	public SearchDialog (Entity entity) {
 		this.entity = entity;
 		
+		setTitle(entity.getName() + " Search");
+		
 		columnPanels = new ArrayList<SearchColumnPanel>();
 		andOrComboBoxes = new ArrayList<AndOrComboBox>();
 		
