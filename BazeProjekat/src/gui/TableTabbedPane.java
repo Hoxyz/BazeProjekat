@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.swing.JTabbedPane;
 
+import controller.itemListeners.RowMouseListener;
 import resource.implementation.Entity;
 
 public class TableTabbedPane extends JTabbedPane {
@@ -80,6 +81,7 @@ public class TableTabbedPane extends JTabbedPane {
 	public void openTable(Entity entity) {
 		if (!openTables.containsKey(entity)) {
 			EntityPanel panel = new EntityPanel(entity);
+			panel.getTable().addMouseListener(new RowMouseListener(panel.getTable()));
 			openTables.put(entity, panel);
 			panelTabIndex.add(entity);
 			
