@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 
+import gui.MainFrame;
 import gui.SearchDialog;
+import resource.implementation.Entity;
 
 public class OpenSearchDialogAction extends AbstractAction {
 	
@@ -23,7 +25,10 @@ public class OpenSearchDialogAction extends AbstractAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		SearchDialog dialog = new SearchDialog();
+		Entity entity = MainFrame.getInstance().getTablePane().getCurrentTable();
+		if (entity != null) {
+			SearchDialog dialog = new SearchDialog(entity);
+		}
 	}
 
 }

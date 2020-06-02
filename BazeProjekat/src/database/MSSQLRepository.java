@@ -196,6 +196,45 @@ public class MSSQLRepository implements Repository {
     	return columns;
     }
     
+    public List<Row> SelectQuery(String query, List<Object> values) {
+		List<Row> rows = new ArrayList<Row>();
+		
+    	try {
+    		this.initConnection();
+    		
+			if(connection == null) {
+				System.out.println("null");
+				return null;
+			}
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			for(int i = 0; i < values.size(); i++) {
+				ps.setObject(i+1, values.get(i));
+			}
+			
+			ResultSet resultRows = ps.executeQuery();
+			
+			ResultSetMetaData rsMetaData = resultRows.getMetaData();
+			
+			while (resultRows.next()) {
+				Row row = new Row();
+				
+				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+					row.addField(rsMetaData.getColumnName(i), resultRows.getObject(i));
+				}
+				
+				rows.add(row);
+			}
+			
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		rows = null;
+    	} finally {
+    		closeConnection();
+    		return rows;
+    	}
+    }
+    
     public void addRowQuery(String query, List<Object> values) {
     	try {
     		this.initConnection();

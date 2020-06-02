@@ -20,7 +20,7 @@ public class TableModel extends DefaultTableModel {
 	private Entity entity;
 	private List<Row> rows;
 	
-	boolean editable;
+	private boolean editable;
 	
 	public TableModel(Entity entity) {
 		this.entity = entity;

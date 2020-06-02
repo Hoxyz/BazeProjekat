@@ -21,8 +21,6 @@ public class AddRowAction extends AbstractAction {
 	AddDialog addDialog;
 	
 	public AddRowAction(String name, Entity entity, List<String> columnNames, AddDialog addDialog) {
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-		putValue(MNEMONIC_KEY, KeyEvent.VK_F);
 		putValue(NAME, name);
 		putValue(SHORT_DESCRIPTION, "Dodaj novi red");
 		

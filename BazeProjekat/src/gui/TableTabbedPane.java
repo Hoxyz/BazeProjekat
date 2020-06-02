@@ -64,7 +64,10 @@ public class TableTabbedPane extends JTabbedPane {
 	}
 
 	public Entity getCurrentTable() {
-		return panelTabIndex.elementAt(getSelectedIndex());
+		if (getSelectedIndex() >= 0) {
+			return panelTabIndex.elementAt(getSelectedIndex());
+		}
+		return null;
 	}
 	
 	public EntityPanel getTableWindow(Entity entity) {
