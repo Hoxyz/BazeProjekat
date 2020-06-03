@@ -21,6 +21,16 @@ public class Row {
     	return fields;
     }
     
+    public Object getValueByFieldName (String name) {
+    	for (Pair<String, Object> field : fields) {
+    		if (field.getFirst().equals(name)) {
+    			return field.getSecond();
+    		}
+    	}
+    	
+    	return null;
+    }
+    
     public Object[] getColumnNames() {
     	Object[] columnNames = new Object[fields.size()];
     	for(int i = 0; i < fields.size(); i++) {

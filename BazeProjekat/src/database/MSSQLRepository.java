@@ -119,16 +119,20 @@ public class MSSQLRepository implements Repository {
                 while (foreignKeys.next()) {
                 	String fkName = foreignKeys.getString("FKCOLUMN_NAME");
                 	String fkTableName = foreignKeys.getString("PKTABLE_NAME");
+                	String fkReferencedName = foreignKeys.getString("PKCOLUMN_NAME");
                 	
                 	// foreign key in this table
                 	Attribute attribute1 = (Attribute)((Entity)ir.getChildByName(tableName)).getChildByName(fkName);
                 	// foreign key in other table
-                	Attribute attribute2 = (Attribute)((Entity)ir.getChildByName(fkTableName)).getChildByName(fkName);
+                	Attribute attribute2 = (Attribute)((Entity)ir.getChildByName(fkTableName)).getChildByName(fkReferencedName);
                 	
                 	attribute1.setInRelationWith(attribute2);
-                	attribute2.setInRelationWith(attribute1);
+                	
+                	System.out.println(tableName + "." + fkName + " TO " + fkTableName + "." + fkReferencedName);
+                	//attribute2.setInRelationWith(attribute1);
                 	
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
+                	((Entity)ir.getChildByName(fkTableName)).addRelation((Entity)ir.getChildByName(tableName));
                 }
             }
             

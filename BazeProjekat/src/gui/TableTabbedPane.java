@@ -81,7 +81,9 @@ public class TableTabbedPane extends JTabbedPane {
 	public void openTable(Entity entity) {
 		if (!openTables.containsKey(entity)) {
 			EntityPanel panel = new EntityPanel(entity);
-			panel.getTable().addMouseListener(new RowMouseListener(panel.getTable()));
+			if (!(this instanceof RelationsTabbedPane)) {
+				panel.getTable().addMouseListener(new RowMouseListener(panel.getTable()));
+			}
 			openTables.put(entity, panel);
 			panelTabIndex.add(entity);
 			
