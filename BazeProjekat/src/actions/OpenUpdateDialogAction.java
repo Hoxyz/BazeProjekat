@@ -3,10 +3,13 @@ package actions;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import gui.EntityPanel;
 import gui.MainFrame;
@@ -31,13 +34,23 @@ public class OpenUpdateDialogAction extends AbstractAction {
 	// Update Dialog will allow only a single row to be modified at a time
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		TableTabbedPane tabbedPane = MainFrame.getInstance().getTablePane();
-		
-		Entity entity = tabbedPane.getCurrentTable();
-		EntityPanel tablePanel = tabbedPane.getTableWindow(entity);
-		Row row = tablePanel.getRow(tablePanel.getSelectedRows()[0]);
-		
-		@SuppressWarnings("unused")
-		UpdateDialog dialog = new UpdateDialog(entity, row);
+		try {
+			TableTabbedPane tabbedPane = MainFrame.getInstance().getTablePane();
+			
+			Entity entity = tabbedPane.getCurrentTable();
+			EntityPanel tablePanel = tabbedPane.getTableWindow(entity);
+			
+			Row row = tablePanel.getRow(tablePanel.getSelectedRows()[0]);			
+			@SuppressWarnings("unused")
+			UpdateDialog dialog = new UpdateDialog(entity, row);
+		}
+		catch (Exception ex){
+			JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Nemoguce azurirati selektovani red / red nije selektovan.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
+			ex.printStackTrace();
+		}
 	}
 }

@@ -12,7 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 import database.settings.Settings;
+import gui.MainFrame;
 import resource.DBNode;
 import resource.data.Row;
 import resource.enums.AttributeType;
@@ -63,7 +70,7 @@ public class MSSQLRepository implements Repository {
     
     @Override
     public DBNode getSchema () {
-        try{
+        try {
             this.initConnection();
 
             DatabaseMetaData metaData = connection.getMetaData();
@@ -142,6 +149,11 @@ public class MSSQLRepository implements Repository {
             return ir;
         }
         catch (Exception e) {
+        	JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Greska pri konekciji na bazu.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
             e.printStackTrace();
         }
         finally {
@@ -174,7 +186,11 @@ public class MSSQLRepository implements Repository {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+        	JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Nemoguce vratiti red iz baze.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
         }
         finally {
             this.closeConnection();
@@ -201,7 +217,11 @@ public class MSSQLRepository implements Repository {
     		}
     	} 
     	catch (Exception e) {
-    		e.printStackTrace();
+    		JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Nemoguce vratiti kolone iz baze.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
     	}
     	finally {
     		this.closeConnection();
@@ -240,6 +260,11 @@ public class MSSQLRepository implements Repository {
 			}
 			
     	} catch (Exception e) {
+    		JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Greska pri pretrazi.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
     		e.printStackTrace();
     		rows = null;
     	} finally {
@@ -264,6 +289,11 @@ public class MSSQLRepository implements Repository {
 			
 			ps.executeUpdate();
     	} catch (Exception e) {
+    		JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Greska pri dodavanju reda.", SwingConstants.CENTER));
+        	errorDialog.setSize(320, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
     		e.printStackTrace();
     	} finally {
     		closeConnection();
@@ -286,6 +316,11 @@ public class MSSQLRepository implements Repository {
 			
 			ps.executeUpdate();
     	} catch (Exception e) {
+    		JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Greska pri brisanju reda.", SwingConstants.CENTER));
+        	errorDialog.setSize(320, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
     		e.printStackTrace();
     	} finally {
     		closeConnection();

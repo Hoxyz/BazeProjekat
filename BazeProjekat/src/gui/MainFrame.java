@@ -6,12 +6,16 @@ import java.awt.Toolkit;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.TableModel;
 
 import actions.ActionManager;
@@ -123,6 +127,7 @@ public class MainFrame extends JFrame implements Subscriber {
 		bottomTablePanel = new JPanel();
 		bottomTablePanel.setLayout(new BoxLayout(bottomTablePanel, BoxLayout.PAGE_AXIS));
 		bottomTablePanel.setPreferredSize(new Dimension(500, 400));
+		bottomTablePanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		bottomTablePanel.add(relationsPane);
 		
 		JPanel rightPanel = new JPanel();
@@ -133,7 +138,6 @@ public class MainFrame extends JFrame implements Subscriber {
 		
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rightPanel);
 		splitPane.setPreferredSize(new Dimension(800, 600));
-		
 		
 		this.add(splitPane, BorderLayout.CENTER);
 		pack();

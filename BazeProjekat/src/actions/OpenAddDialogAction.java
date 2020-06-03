@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import gui.AddDialog;
 import gui.MainFrame;
@@ -25,9 +28,19 @@ public class OpenAddDialogAction extends AbstractAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int index = MainFrame.getInstance().getTablePane().getSelectedIndex();
-		Entity table = MainFrame.getInstance().getTablePane().getCurrentTable();
-		System.out.println(table);
-		AddDialog dialog = new AddDialog(table);
+		try {
+			int index = MainFrame.getInstance().getTablePane().getSelectedIndex();
+			Entity table = MainFrame.getInstance().getTablePane().getCurrentTable();
+			System.out.println(table);
+			AddDialog dialog = new AddDialog(table);
+		}
+		catch (Exception ex) {
+			JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Nemoguce dodati red.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
+			ex.printStackTrace();
+		}
 	}
 }

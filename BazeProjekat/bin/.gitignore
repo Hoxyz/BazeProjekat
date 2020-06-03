@@ -1,10 +1,4 @@
-/actions/
-/app/
-/controller/
-/database/
 /gui/
-/jtds-1.3.1.jar
-/model/
-/observer/
-/resource/
-/utils/
+/database/
+/app/
+/actions/

@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import database.DatabaseImplementation;
 import database.MSSQLRepository;
@@ -44,8 +47,18 @@ public class UpdateRowAction extends AbstractAction {
 		preparedStatementValues.addAll(initialValues);
 		
 		// TODO: Wrap in a try/catch block
-		((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
-				.getRepository()).removeRowQuery(query, preparedStatementValues);
+		try {
+			((MSSQLRepository) ((DatabaseImplementation) MainFrame.getInstance().getAppCore().getDatabase())
+					.getRepository()).removeRowQuery(query, preparedStatementValues);
+		}
+		catch (Exception e) {
+			JDialog errorDialog = new JDialog(MainFrame.getInstance(), "Greska", true);
+        	errorDialog.add(new JLabel("Nemoguce azurirati selektovani red / red nije selektovan.", SwingConstants.CENTER));
+        	errorDialog.setSize(480, 180);
+        	errorDialog.setLocationRelativeTo(null);
+        	errorDialog.setVisible(true);
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

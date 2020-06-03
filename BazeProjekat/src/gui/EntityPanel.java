@@ -43,6 +43,9 @@ public class EntityPanel extends JPanel {
 	}
 	
 	public int[] getSelectedRows () {
+		if(table == null) {
+			return null;
+		}
 		return table.getSelectedRows();
 	}
 	
