@@ -54,7 +54,7 @@ public class SearchAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		List<Row> results = SearchTable(dialog.getTableName(), dialog.getColumns(), dialog.getParameters(), dialog.getLogicalOperators());
-		if (results.size() > 0) {
+		if (results != null && results.size() > 0) {
 			new QueryResultFrame(results);
 		}
 		else {
