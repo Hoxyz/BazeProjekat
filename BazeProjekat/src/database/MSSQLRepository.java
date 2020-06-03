@@ -70,11 +70,17 @@ public class MSSQLRepository implements Repository {
             InformationResource ir = new InformationResource("RAF_BP_Primer");
 
             String tableType[] = {"TABLE"};
+
             ResultSet tables = metaData.getTables(connection.getCatalog(), null, null, tableType);
 
             while (tables.next()) {
 
                 String tableName = tables.getString("TABLE_NAME");
+                
+                if (Character.isLowerCase(tableName.charAt(0))) {
+                	continue; // :)
+                }
+                
                 Entity newTable = new Entity(tableName, ir);
                 ir.addChild(newTable);
 

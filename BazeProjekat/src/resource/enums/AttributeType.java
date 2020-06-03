@@ -7,6 +7,8 @@ public enum AttributeType {
     DATE,
     TIME,
     DATETIME,
+    DATETIME2,
+    DATETIMEOFFSET,
     FLOAT,
     REAL,
     BIT,
@@ -16,7 +18,12 @@ public enum AttributeType {
     INT,
     IMAGE,
     SMALLINT,
+    TINYINT,
+    NCHAR,
     NVARCHAR,
     SYSNAME,
-    VARBINARY
+    BINARY,
+    VARBINARY,
+    SQL_VARIANT,
+    UNIQUEIDENTIFIER
 }

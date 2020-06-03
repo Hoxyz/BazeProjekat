@@ -50,7 +50,6 @@ public class RelationsTabbedPane extends TableTabbedPane {
 			    		if (pair.getKey().getChildren().contains(relatedAttr)) {
 			    			Object currentValue = currentRow.getValueByFieldName(relatedAttr.getName());
 			    			Object selectedValue = row.getValueByFieldName(attr.getName());
-			    			//System.out.println(attr.getName() + "=" +currentValue + ", " + relatedAttr.getName() + "=" + selectedValue);
 	    					if (currentValue != null && selectedValue != null && currentValue.equals(selectedValue)) {
 	    						return true;
 	    					}
@@ -64,7 +63,6 @@ public class RelationsTabbedPane extends TableTabbedPane {
 			    		if (relatedTable.getChildren().contains(relatedAttr)) {
 			    			Object currentValue = currentRow.getValueByFieldName(attr.getName());
 			    			Object selectedValue = row.getValueByFieldName(relatedAttr.getName());
-			    			System.out.println(attr.getName() + "=" +currentValue + ", " + relatedAttr.getName() + "=" + selectedValue);
 	    					if (currentValue != null && selectedValue != null && currentValue.equals(selectedValue)) {
 	    						return true;
 	    					}
