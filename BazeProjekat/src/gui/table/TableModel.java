@@ -57,8 +57,6 @@ public class TableModel extends DefaultTableModel {
     
     @Override
     public void setValueAt (Object value, int row, int col) {
-    	System.out.println("Column " + col);
-    	
     	List<String> columnNames = new ArrayList<String>();
 		List<Object> initialValues = new ArrayList<Object>();
 		List<Object> values = new ArrayList<Object>();

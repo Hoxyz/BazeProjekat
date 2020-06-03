@@ -134,9 +134,6 @@ public class MSSQLRepository implements Repository {
                 	
                 	attribute1.setInRelationWith(attribute2);
                 	
-                	System.out.println(tableName + "." + fkName + " TO " + fkTableName + "." + fkReferencedName);
-                	//attribute2.setInRelationWith(attribute1);
-                	
                 	((Entity)ir.getChildByName(tableName)).addRelation((Entity)ir.getChildByName(fkTableName));
                 	((Entity)ir.getChildByName(fkTableName)).addRelation((Entity)ir.getChildByName(tableName));
                 }

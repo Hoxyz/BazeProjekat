@@ -34,8 +34,6 @@ public class RelationsTabbedPane extends TableTabbedPane {
 	}
 	
 	public void ShowRelatedRowsWith (Row row) {
-		row.getFields().stream().forEachOrdered(field -> System.out.print(field.getFirst() + ":" + field.getSecond() + " "));
-		
 		for (Map.Entry<Entity, EntityPanel> pair : openTables.entrySet()) {
 			EntityPanel ep = (EntityPanel) pair.getValue();
 			

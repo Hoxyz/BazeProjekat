@@ -5,7 +5,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 
+import gui.EntityPanel;
 import gui.MainFrame;
+import gui.TableTabbedPane;
+import resource.data.Row;
+import resource.implementation.Entity;
 
 public class RowMouseListener implements MouseListener {
 
@@ -37,12 +41,19 @@ public class RowMouseListener implements MouseListener {
 	@Override
 	public void mousePressed (MouseEvent e) {
 		int rowAtPoint = table.rowAtPoint(e.getPoint());
-		int colAtPoint = table.columnAtPoint(e.getPoint());
-		if(rowAtPoint != -1) {
-			table.changeSelection(rowAtPoint, colAtPoint, false, false);
+		if (rowAtPoint != -1) {
+			//table.changeSelection(rowAtPoint, colAtPoint, false, false);
 			// refresh relations pane in mainFrame
 			MainFrame mf = MainFrame.getInstance();
-			mf.getRelationsPane().ShowRelatedRowsWith(mf.getTablePane().getTableWindow(mf.getTablePane().getCurrentTable()).getRow(rowAtPoint));
+			
+			TableTabbedPane tablePane = mf.getTablePane();
+			Entity table = tablePane.getCurrentTable();
+			EntityPanel tableWindow = tablePane.getTableWindow(table);
+			
+			if (tableWindow.getSelectedRows().length > 0) {
+				Row row = tableWindow.getRow(tableWindow.getSelectedRows()[0]);
+				mf.getRelationsPane().ShowRelatedRowsWith(row);
+			}
 		}
 	}
 
